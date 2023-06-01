@@ -1,0 +1,131 @@
+<!--
+
+########################################
+#
+# Developer : Ravichandran T S
+# Phone : 9113971166
+# Email : ravichandrants202@gmail.com
+#
+########################################
+
+-->
+
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles.css'%}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <title>Hackmitteam - Team Register</title>
+</head>
+<body>
+    <section class="h-100 gradient-form" style="background-color: #eee;">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-6">
+              <div class="card rounded-3 text-black">
+                <div class="row g-0">
+                  <div class="col-lg-12">
+                    <div class="card-body p-md-5 mx-md-4">
+      
+                      <div class="text-center">
+                        <img src="{% static 'mittlogo.png' %}" style="width: 110px;" alt="logo">
+                        <h4 class="mt-1 mb-5 pb-1">HACKMITTEAN</h4>
+                      </div>
+      
+                      <form method="post" action="{% url 'register'  %}">
+                        {% csrf_token %}
+                        <p>Please register your Team</p>
+
+                        <div class="form-outline mb-3">
+                          <label class="form-label" for="form2Example11" >Team Name</label>
+                          <input type="text" id="form2Example11" class="form-control"
+                            placeholder="MITT Rokerz" required name="team_name" />
+                        </div>
+
+                        <div class="form-outline mb-3">
+                          <label class="form-label" for="form2Example11" >Total Team Size (1 - 4)</label>
+                          <input type="number" id="form2Example11" class="form-control"
+                            placeholder="eg. 1 - 4" required name="team_size" />
+                        </div>
+
+                        <div class="form-outline mb-3">
+                          <label class="form-label" for="form2Example11" >College Name</label>
+                          <input type="text" id="form2Example11" class="form-control"
+                            placeholder="Maharaja Institute of technology" required name="college_name" />
+                        </div>
+
+                        <div class="form-outline mb-3">
+                          <label class="form-label" for="form2Example11" >Team Members Name </label>
+                            <input type="text" id="form2Example11" class="form-control"
+                              placeholder="Person 1" name="person1" required />
+                              <input type="text" id="form2Example11" class="form-control mt-1"
+                              placeholder="Person 2 " name="person2" required />
+                              <input type="text" id="form2Example11" class="form-control mt-1"
+                              placeholder="Person 3 " name="person3" />
+                              <input type="text" id="form2Example11" class="form-control mt-1"
+                              placeholder="Person 4 " name="person4" />
+                          </div>
+
+                          <div class="form-outline mb-3">
+                            <label class="form-label" for="form2Example11" ><strong>Team Leader</strong></label><br>
+                            <label class="form-label" for="form2Example11" >Name</label>
+                            <input type="text" id="form2Example11" class="form-control"
+                              placeholder="XYZ" required name="leader_name" />
+                              <p class="text-black-50">Note : Leader Name should be in Team members input</p>
+                          </div>
+
+                          <div class="form-outline mb-3">
+                            <label class="form-label" for="form2Example11" >Phone Number</label>
+                            <input type="text" id="form2Example11" class="form-control"
+                              placeholder="9113XXXXXX" required name="leader_phone" />
+                          </div>
+
+                          <div class="form-outline mb-3">
+                            <label class="form-label" for="form2Example11" >Email</label>
+                            <input type="email" id="form2Example11" class="form-control"
+                              placeholder="abc@gmail.com" required name="leader_email" />
+                          </div>
+
+                          <div class="form-outline mb-3">
+                            <input type="checkbox" id="checkbox"><p class="d-inline"> I have agreed for <a href="{% url 'TermsAndConditions' %}">terms and conditions</a></p>
+                          </div>
+      
+                        <div id="buttonid">
+                        <input type="submit" class="btn btn-outline-danger px-5" disabled value="Pay and Register">
+                        </div>
+                      </form>
+
+                      
+                       {% for message in messages %}
+                        <p class="text-center text-danger mt-3">{{message}}</p>
+                        {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <script>
+        let checkbox = document.getElementById("checkbox");
+        let btnEl = document.getElementById('buttonid')
+
+
+        checkbox.addEventListener( "change", () => {
+         if ( checkbox.checked ) {
+               btnEl.innerHTML = `<input type="submit" class="btn btn-outline-danger px-5" value="Pay and Register">`
+         }  else {
+          btnEl.innerHTML = `<input type="submit" class="btn btn-outline-danger px-5" disabled value="Pay and Register">`
+         }
+        })
+      </script>
+</body>
+</html>
+
+

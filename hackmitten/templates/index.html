@@ -1,0 +1,550 @@
+<!--
+
+########################################
+#
+# Developer : Ravichandran T S
+# Phone : 9113971166
+# Email : ravichandrants202@gmail.com
+#
+########################################
+
+-->
+
+
+{% load static %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Hackmittean</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.svg' %}" />
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %} " />
+    <link rel="stylesheet" href="{% static 'css/LineIcons.3.0.css' %} " />
+    <link rel="stylesheet" href="{% static 'css/animate.css' %} " />
+    <link rel="stylesheet" href="{% static 'css/tiny-slider.css' %} " />
+    <link rel="stylesheet" href="{% static 'css/glightbox.min.css' %} " />
+    <link rel="stylesheet" href="{% static 'css/main.css' %} " />
+
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
+        your experience and security.
+      </p>
+    <![endif]-->
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- /End Preloader -->
+
+    <!-- Start Header Area -->
+    <header class="header navbar-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <div class="nav-inner">
+                        <!-- Start Navbar -->
+                        <nav class="navbar navbar-expand-lg">
+                            <a class="navbar-brand" href="{% url 'index' %}">
+                                <!-- <img src="{% static 'images/logo/logo.svg' %}" alt="Logo"> -->
+                                <h2 class="h3 mt-1 text-white">HACKMITTEN</h2>
+                            </a>
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+                                    <li class="nav-item">
+                                        <a href="#home" class="active" aria-label="Toggle navigation">Home</a>
+                                    </li>
+                                    <!-- <li class="nav-item">
+                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
+                                            data-bs-target="#submenu-1-1" aria-controls="navbarSupportedContent"
+                                            aria-expanded="false" aria-label="Toggle navigation">Pages</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-1">
+                                            <li class="nav-item"><a href="about-us.html">About Us</a></li>
+                                            <li class="nav-item"><a href="gallery.html">Gallery</a></li>
+                                            <li class="nav-item"><a href="pricing.html">Pricing</a></li>
+                                            <li class="nav-item"><a href="sponsors.html">Sponsors</a></li>
+                                            <li class="nav-item"><a href="mail-success.html">Mail Success</a></li>
+                                            <li class="nav-item"><a href="404.html">404 Error</a></li>
+                                        </ul>
+                                    </li> -->
+                                    <li class="nav-item">
+                                        <a href="#schedule" aria-label="Toggle navigation">Schedule</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#pricing" aria-label="Toggle navigation">Pricing</a>
+                                    </li>
+                                    <!-- <li class="nav-item">
+                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
+                                            data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent"
+                                            aria-expanded="false" aria-label="Toggle navigation">Blog</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-2">
+                                            <li class="nav-item"><a href="blog-grid.html">Blog Grid</a>
+                                            </li>
+                                            <li class="nav-item"><a href="blog-single.html">Blog Single</a></li>
+                                        </ul>
+                                    </li> -->
+                                    <li class="nav-item">
+                                        <a href="#contact" aria-label="Toggle navigation">Contact</a>
+                                    </li>
+
+                                    {% if user.id == 1 %}
+                                    <li class="nav-item">
+                                        <a href="{% url 'teams' %}" aria-label="Toggle navigation">Teams</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{% url 'users' %}" aria-label="Toggle navigation">Users</a>
+                                    </li>
+                                    {% endif %}
+                                    
+                                        {% if user.is_authenticated and user.id != 1 %}
+                                        <li class="nav-item">
+                                            <a href="{% url 'profile' user.id %}" aria-label="Toggle navigation">Profile</a>
+                                        </li>
+                                        {% endif %}
+                                </ul>
+                            </div> <!-- navbar collapse -->
+
+                            <div class="button">
+                                {% if user.is_authenticated %}
+                                <a href="{% url 'logout' %}" class="btn">Logout</a>
+                                {% else %}
+                                <a href="{% url 'signin' %}" class="btn">Login</a>
+                                {% endif %}
+                            </div>
+                        </nav>
+                        <!-- End Navbar -->
+                    </div>
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </header>
+    <!-- End Header Area -->
+
+    <!-- Start Hero Area -->
+    <section class="hero-area" id="home">
+        <div class="main__circle"></div>
+        <div class="main__circle2"></div>
+        <div class="main__circle3"></div>
+        <div class="main__circle4"></div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 offset-lg-3 col-md-12 col-12">
+                    <div class="hero-content">
+                        <h5 class="wow zoomIn" data-wow-delay=".2s"><i class="lni lni-map-marker"></i> MITT, Thandavapura</h5>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">The largest hackathon in MITT 2023</h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">Welcome, {{ user.username }} !!.</p>
+                        <div class="button wow fadeInUp" id="schedule" data-wow-delay=".8s">
+                            <a href="{% url 'register' %}" class="btn ">Register Your Team Now <i class="lni lni-ticket"></i></a>
+                            <!-- <a class="btn ">Register Your Team Now <i class="lni lni-ticket"></i></a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Hero Area -->
+
+    <!-- Start Count Down Area -->
+    <div class="count-down">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="box-head">
+                        <div class="box-content">
+                            <div class="box">
+                                <h1 id="days">000</h1>
+                                <h2 id="daystxt">Days</h2>
+                            </div>
+                            <div class="box">
+                                <h1 id="hours">00</h1>
+                                <h2 id="hourstxt">Hours</h2>
+                            </div>
+                            <div class="box">
+                                <h1 id="minutes">00</h1>
+                                <h2 id="minutestxt">Minutes</h2>
+                            </div>
+                            <div class="box">
+                                <h1 id="seconds">00</h1>
+                                <h2 id="secondstxt">Secondes</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Count Down Area -->
+
+    <!-- Start Features Area -->
+    <section class="features section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <h3 class="wow zoomIn" data-wow-delay=".2s">Why join Hackmitten?</h3>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Why you should Join Event</h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">“Hackathon” is a combination of Hack + Marathon. A 24 hours event where people come together to solve problems with digital means and pitch them at the end.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-12 wow fadeInUp" data-wow-delay=".2s">
+                    <!-- Start Single Feature -->
+                    <div class="single-featuer">
+                        <img class="shape" src="{% static 'images/features/shape.svg' %}" alt="#">
+                        <img class="shape2" src="{% static 'images/features/shape2.svg' %}" alt="#">
+                        <span class="serial">01</span>
+                        <div class="service-icon">
+                            <i class="lni lni-microphone"></i>
+                        </div>
+                        <h3>Great Speakers</h3>
+                        <p>How you transform your business as tech, consumer, habits industry dynamic change, Find out
+                            from.</p>
+                    </div>
+                    <!-- End Single Feature -->
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 wow fadeInUp" data-wow-delay=".4s">
+                    <!-- Start Single Feature -->
+                    <div class="single-featuer">
+                        <img class="shape" src="{% static 'images/features/shape.svg' %}" alt="#">
+                        <img class="shape2" src="{% static 'images/features/shape2.svg' %}" alt="#">
+                        <span class="serial">02</span>
+                        <div class="service-icon">
+                            <i class="lni lni-users"></i>
+                        </div>
+                        <h3>Work As a Team</h3>
+                        <p>To move forward in life and accomplish your dreams, you will have to do it by working with other people.</p>
+                    </div>
+                    <!-- End Single Feature -->
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 wow fadeInUp" data-wow-delay=".6s">
+                    <!-- Start Single Feature -->
+                    <div class="single-featuer">
+                        <img class="shape" src="{% static 'images/features/shape.svg' %}" alt="#">
+                        <img class="shape2" src="{% static 'images/features/shape2.svg' %}" alt="#">
+                        <span class="serial">03</span>
+                        <div class="service-icon">
+                            <i class="lni lni-bullhorn"></i>
+                        </div>
+                        <h3>Learn New Things</h3>
+                        <p>being a programmer,  a hackathon will throw real problems you’ll need to work through with your team.</p>
+                    </div>
+                    <!-- End Single Feature -->
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 wow fadeInUp" data-wow-delay=".2s">
+                    <!-- Start Single Feature -->
+                    <div class="single-featuer">
+                        <img class="shape" src="{% static 'images/features/shape.svg' %}" alt="#">
+                        <img class="shape2" src="{% static 'images/features/shape2.svg' %}" alt="#">
+                        <span class="serial">04</span>
+                        <div class="service-icon">
+                            <i class="lni lni-heart"></i>
+                        </div>
+                        <h3>Get Inspired</h3>
+                        <p>Hackathons prove to be a great way to provide job opertunities for Hackathon winner, Easily winners will be selected from companiess</p>
+                    </div>
+                    <!-- End Single Feature -->
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 wow fadeInUp" data-wow-delay=".4s">
+                    <!-- Start Single Feature -->
+                    <div class="single-featuer">
+                        <img class="shape" src="{% static 'images/features/shape.svg' %}" alt="#">
+                        <img class="shape2" src="{% static 'images/features/shape2.svg' %}" alt="#">
+                        <span class="serial">05</span>
+                        <div class="service-icon">
+                            <i class="lni lni-cup"></i>
+                        </div>
+                        <h3>Win Many Prizes</h3>
+                        <p>Money’s just an object when it comes to these events, so you can win something big if you come out on top. Competing in a hackathon is worth it just for these rewards.</p>
+                    </div>
+                    <!-- End Single Feature -->
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 wow fadeInUp" data-wow-delay=".6s">
+                    <!-- Start Single Feature -->
+                    <div class="single-featuer">
+                        <img class="shape" src="{% static 'images/features/shape.svg' %}" alt="#">
+                        <img class="shape2" src="{% static 'images/features/shape2.svg' %}" alt="#">
+                        <span class="serial">06</span>
+                        <div class="service-icon">
+                            <i class="lni lni-happy"></i>
+                        </div>
+                        <h3>New People</h3>
+                        <p>Hackathons prove to be a great way to meet new people and expand your social circle. Knowing others at a hackathon will help expand your professional network and broaden your horizon.</p>
+                    </div>
+                    <!-- End Single Feature -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /End Features Area -->
+
+    <!-- Start Pricing Table Area -->
+    <section id="pricing" class="pricing-table section extra-page bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <h3 class="wow zoomIn" data-wow-delay=".2s">pricing</h3>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Pricing & Plans</h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">MITT is offering you with great/affordable price</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <div class="col-lg-4 col-md-6 col-12 wow fadeInUp" data-wow-delay=".8s">
+                        <!-- Single Table -->
+                        <div class="single-table">
+                            <!-- Table Head -->
+                            <div class="table-head">
+                                <h4 class="title">HACKMITTEN</h4>
+                                <p>Seats are limited</p>
+                                <div class="price">
+                                    <h2 class="amount"> Rs. 300</h2>
+                                    <p>Per Head</p>
+                                </div>
+                            </div>
+                            <!-- End Table Head -->
+                            <div class="button">
+                                <a href="{% url 'register' %}" class="btn">Register</a>
+                                <!-- <a  class="btn">Register</a> -->
+                            </div>
+                            <!-- Start Table Content -->
+                            <div class="table-content">
+                                <!-- Table List -->
+                                <ul class="table-list">
+                                    <li>24 Hours Hospitality</li>
+                                    <li>Free Food and Snacks</li>
+                                    <li>Extra Games</li>
+                                    <li>Great Prizes</li>
+                                </ul>
+                                <!-- End Table List -->
+                            </div>
+                            <!-- End Table Content -->
+                        </div>
+                        <!-- End Single Table-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/ End Pricing Table Area -->
+
+
+    <!-- Start Footer Area -->
+    <footer class="footer" id="contact">
+        <!-- Start Footer Top -->
+        <div class="footer-top">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <!-- Single Widget -->
+                            <div class="single-footer f-about">
+                                <div class="logo">
+                                    <a href="index.html">
+                                        <h2 class="text-black-50 fw-bolder ">HACKMITTEAN</h2>
+                                    </a>
+                                </div>
+                                <p>MIT THANDAVAPURA <br>
+                                   Mysore - Ooty Road,<br>
+                                   Just off NH 766 Nanjanagudu, taluk,<br>
+                                    Thandavapura,<br>
+                                     Karnataka 571302</p>
+                                <span class="social-title">
+                                    Follow Us On:
+                                </span>
+                                <ul class="social">
+                                    <li>
+                                        <a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)"><i class="lni lni-twitter-filled"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)"><i class="lni lni-instagram-filled"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)"><i class="lni lni-linkedin-original"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End Single Widget -->
+                        </div>
+                        <div class="col-lg-2 col-md-6 col-12">
+                            <!-- Single Widget -->
+                            <div class="single-footer f-link">
+                                <h3>Quick Links</h3>
+                                <ul>
+                                    <li><a href="https://www.google.com/maps/place/MIT+Thandavapura/@12.1771284,76.6664433,17z/data=!3m1!4b1!4m6!3m5!1s0x3baf68ebcaaf5815:0xccb790eb902050cd!8m2!3d12.1771284!4d76.668632!16s%2Fg%2F11c1p4drdk">Get Direction</a></li>
+                                    <li><a href="http://mitt.edu.in/">Official Site</a></li>
+                                    <li><a href="http://mitt.edu.in/computer-science-and-engineering/">Departments</a></li>
+                                    <li><a href="http://mitt.edu.in/committee/">Committee</a></li>
+                                </ul>
+                            </div>
+                            <!-- End Single Widget -->
+                        </div>
+                        <div class="col-lg-2 col-md-6 col-12">
+                            <!-- Single Widget -->
+                            <div class="single-footer f-link">
+                                <h3>Know More</h3>
+                                <ul>
+                                    <li><a href="http://mitt.edu.in/about-us/why-mitt/">About Us</a></li>
+                                    <li><a href="http://mitt.edu.in/admission/">Admission</a></li>
+                                    <li><a href="http://mitt.edu.in/placement/">Placements</a></li>
+                                    <li><a href="mailto:principal_mitt@mittmysore.in">Email Us</a></li>
+                                    <li><a href="tel:+08212972917">Contact Us</a></li>
+                                </ul>
+                            </div>
+                            <!-- End Single Widget -->
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <!-- Single Widget -->
+                            <div class="single-footer newsletter">
+                                <h3>Subscribe to our newsletter</h3>
+                                <form action="{% url 'index' %}" method="post" class="newsletter-form">
+                                    {% csrf_token %}
+                                    <input name="name" placeholder="Your Name*" required type="text">
+                                    <input name="email" placeholder="Email address*" required type="email">
+                                    <textarea name="comment" class="form-control" placeholder="Enter something in here....*" required></textarea>
+                                    <div class="button">
+                                        <button class="btn" type="submit">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- End Single Widget -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ End Footer Top -->
+        <!-- Start Copyright Area -->
+        <div class="copyright">
+            <div class="container">
+                <div class="inner-content">
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="copyright-text">Designed and Developed by <a href="https://www.linkedin.com/in/ravichandran-t-s-551080215/"
+                                    rel="nofollow" target="_blank">Ravichandran T S</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Copyright Area -->
+    </footer>
+    <!--/ End Footer Area -->
+
+    <!-- ========================= scroll-top ========================= -->
+    <a href="#" class="scroll-top">
+        <i class="lni lni-chevron-up"></i>
+    </a>
+
+    <!-- ========================= JS here ========================= -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <script src="{% static 'js/tiny-slider.js' %}"></script>
+    <script src="{% static 'js/glightbox.min.js' %}"></script>
+    <script src="{% static 'js/count-up.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        //========= glightbox
+        GLightbox({
+            'href': 'https://www.youtube.com/watch?v=Gxw45q3Ga3k',
+            'type': 'video',
+            'source': 'youtube', //vimeo, youtube or local
+            'width': 900,
+            'autoplayVideos': true,
+        });
+
+        //========= testimonial 
+        tns({
+            container: '.testimonial-slider',
+            items: 3,
+            slideBy: 'page',
+            autoplay: false,
+            mouseDrag: true,
+            gutter: 0,
+            nav: true,
+            controls: false,
+            controlsText: ['<i class="lni lni-arrow-left"></i>', '<i class="lni lni-arrow-right"></i>'],
+            responsive: {
+                0: {
+                    items: 1,
+                },
+                540: {
+                    items: 1,
+                },
+                768: {
+                    items: 2,
+                },
+                992: {
+                    items: 2,
+                },
+                1170: {
+                    items: 3,
+                }
+            }
+        });
+    </script>
+    <script>
+        const finaleDate = new Date("April 27, 2024 10:00:00").getTime();
+
+        const timer = () => {
+            const now = new Date().getTime();
+            let diff = finaleDate - now;
+            if (diff < 0) {
+                document.querySelector('.alert').style.display = 'block';
+                document.querySelector('.container').style.display = 'none';
+            }
+
+            let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            let hours = Math.floor(diff % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
+            let minutes = Math.floor(diff % (1000 * 60 * 60) / (1000 * 60));
+            let seconds = Math.floor(diff % (1000 * 60) / 1000);
+
+            days <= 99 ? days = `0${days}` : days;
+            days <= 9 ? days = `${days}` : days;
+            hours <= 9 ? hours = `0${hours}` : hours;
+            minutes <= 9 ? minutes = `0${minutes}` : minutes;
+            seconds <= 9 ? seconds = `0${seconds}` : seconds;
+
+            document.querySelector('#days').textContent = days;
+            document.querySelector('#hours').textContent = hours;
+            document.querySelector('#minutes').textContent = minutes;
+            document.querySelector('#seconds').textContent = seconds;
+
+        }
+        timer();
+        setInterval(timer, 1000);
+    </script>
+</body>
+
+</html>

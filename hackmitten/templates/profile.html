@@ -1,0 +1,283 @@
+<!--
+
+########################################
+#
+# Developer : Ravichandran T S
+# Phone : 9113971166
+# Email : ravichandrants202@gmail.com
+#
+########################################
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-color: #f9f9fa;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .padding{   
+            padding: 1rem;
+        }
+
+
+        .user-card-full {
+
+            overflow: hidden;
+        }
+
+        .card {
+            border-radius: 5px;
+            -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+            box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+            border: none;
+            margin-bottom: 30px;
+        }
+
+        .m-r-0 {
+            margin-right: 0px;
+        }
+
+        .m-l-0 {
+            margin-left: 0px;
+        }
+
+        .user-card-full .user-profile {
+            border-radius: 5px 0 0 5px;
+        }
+
+        .bg-c-lite-green {
+            background: -webkit-gradient(linear, left top, right top, from(#85018a), to(#c3057d));
+            background: linear-gradient(to right, #7461f3, #f351b8);
+        }
+
+        .user-profile {
+            padding: 20px 0;
+        }
+
+        .card-block {
+            padding: 1.25rem;
+        }
+
+        .m-b-25 {
+            margin-bottom: 25px;
+        }
+
+        .img-radius {
+            border-radius: 5px;
+        }
+
+
+
+        h6 {
+            font-size: 14px;
+        }
+
+        .card .card-block p {
+            line-height: 25px;
+        }
+
+
+        @media only screen and (min-width: 2400px) {
+            p {
+                font-size: 14px;
+            }
+        }
+
+        .card-block {
+            padding: 1.25rem;
+        }
+
+        .b-b-default {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .m-b-20 {
+            margin-bottom: 20px;
+        }
+
+        .p-b-5 {
+            padding-bottom: 5px !important;
+        }
+
+        .card .card-block p {
+            line-height: 25px;
+        }
+
+        .m-b-10 {
+            margin-bottom: 10px;
+        }
+
+        .text-muted {
+            color: #919aa3 !important;
+        }
+
+        .b-b-default {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .f-w-600 {
+            font-weight: 600;
+        }
+
+        .m-b-20 {
+            margin-bottom: 20px;
+        }
+
+        .m-t-40 {
+            margin-top: 20px;
+        }
+
+        .p-b-5 {
+            padding-bottom: 5px !important;
+        }
+
+        .m-b-10 {
+            margin-bottom: 10px;
+        }
+
+        .m-t-40 {
+            margin-top: 20px;
+        }
+
+        .user-card-full .social-link li {
+            display: inline-block;
+        }
+
+        .user-card-full .social-link li a {
+            font-size: 20px;
+            margin: 0 10px 0 0;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .card-shadow {
+            /* padding:.5rem; */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        @media  screen and (max-width:600px){
+            .padding{
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="">
+        <div class="page-content page-container p-lg-5 p-0" id="page-content">
+            <div class="padding">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-xl-12 col-md-12" id="card">
+                        <div class="card user-card-full">
+                            <div class="row m-l-0 m-r-0">
+                                <div class="col-sm-4 bg-c-lite-green user-profile">
+                                    <div class="card-block text-center text-white">
+                                        <div class="m-b-25">
+                                            <img src="https://img.icons8.com/bubbles/100/000000/user.png"
+                                                class="img-radius" alt="User-Profile-Image">
+                                        </div>
+                                        <h6 class="f-w-800 h3">{{user.username}}</h6>
+                                        <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8">
+                                    <div class="card-block">
+                                        <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <p class="m-b-10 f-w-600">Firstname</p>
+                                                <h6 class="text-muted f-w-400">{{user.first_name}}</h6>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="m-b-10 f-w-600">Lastname</p>
+                                                <h6 class="text-muted f-w-400">{{user.last_name}}</h6>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p class="m-b-10 f-w-600">Email</p>
+                                                <h6 class="text-muted f-w-400">{{user.email}}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {% if teams %}
+                                    <div class="card-block">
+                                        <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Registered Teams</h6>
+                                        <div class="row row-cols-lg-2 row-cols-1">
+
+                                            {% for team in teams %}
+                                            {% if team.paid == False %}
+                                            <div class="col-lg-6 col-12 ">
+                                                <div class="card-shadow">
+                                                    <p class="alert alert-danger">
+                                                        <strong>{{team.team_name}}</strong><span
+                                                            class="float-right text-danger f-w-600">Not Paid</span></p>
+                                                    <div class="px-3">
+                                                        <p>Payment Id : <span
+                                                                class="small font-weight-bold font-weight-light">{{team.payment_id}}</span>
+                                                        </p>
+                                                        <p>Created Time : <span class="small font-weight-bold font-weight-light">{{team.time}}</span>
+                                                        </p>
+                                                        <a href="{% url 'payment' team.id %}" class="btn btn-outline-primary rounded-5 text-decoration-none">Pay</a>
+                                                        <a href="{% url 'teamedituser' team.id %}" class="btn btn-outline-danger rounded-5 text-decoration-none">Edit</a>
+                                                        <p class="small text-secondary">Usually it will takes
+                                                            <strong>12 hours to verify your payment</strong><br>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% else %}
+                                            <div class="col-lg-6 col-12 ">
+                                                <div class="card-shadow">
+                                                    <p class="alert alert-success">
+                                                        <strong>{{team.team_name}}</strong><span
+                                                            class="float-right text-primary f-w-600">Payment
+                                                            Verified</span></p>
+                                                    <div class="px-3">
+                                                        <p>Payment Id : <span
+                                                                class="small font-weight-bold">{{team.payment_id}}</span>
+                                                        </p>
+                                                        <p>Payment Time : <span class="small font-weight-bold">{{team.time}}</span>
+                                                        </p>
+                                                        <a href="{% url 'payment' team.id %}"
+                                                            class="btn btn-outline-success rounded-5 text-decoration-none">view
+                                                            details</a>
+                                                        <a href="{% url 'teamedituser' team.id %}"
+                                                            class="btn btn-outline-primary rounded-5 text-decoration-none">Edit
+                                                            </a>
+                                                        <p class="small text-secondary">Thankyou for participating in
+                                                            <strong>HACKMITTEAN</strong><br>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+</html>

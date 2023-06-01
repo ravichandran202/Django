@@ -1,0 +1,76 @@
+<!--
+
+########################################
+#
+# Developer : Ravichandran T S
+# Phone : 9113971166
+# Email : ravichandrants202@gmail.com
+#
+########################################
+
+-->
+
+
+{% extends 'base.html' %}
+{% block content %}
+
+    <!-- Edit Modal HTML -->
+	<div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="{% url 'teamedituser' team.id %}" method="post">
+					{% csrf_token %}
+					<div class="modal-header alert alert-success">						
+						<h4 class="modal-title">Edit Team - {{team.team_name}}</h4>
+					</div>
+					<div class="modal-body">					
+						<div class="form-group">
+							<label>Name</label>
+							<input value="{{team.team_name}}" type="text" class="form-control" name="team_name" required>
+						</div>
+						<div class="form-group">
+							<label>Size</label>
+							<input value="{{team.team_size}}" type="number" class="form-control" name="team_size" required>
+						</div>
+                        <div class="form-group">
+							<label>College</label>
+							<input value="{{team.college_name}}" type="text" class="form-control" name="college_name" required>
+						</div>
+                        <div class="form-group">
+							<label>Person 1</label>
+							<input value="{{team.person1}}" type="text" class="form-control" name="person1" required>
+						</div>
+                        <div class="form-group">
+							<label>Person 2</label>
+							<input value="{{team.person2}}" type="text" class="form-control" name="person2" required>
+						</div>
+                        <div class="form-group">
+							<label>Person 3</label>
+							<input value="{{team.person3}}" type="text" class="form-control" name="person3">
+						</div>
+                        <div class="form-group">
+							<label>Person 4</label>
+							<input value="{{team.person4}}" type="text" class="form-control" name="person4">
+						</div>
+						<div class="form-group">
+							<label>Leader Name</label>
+							<input value="{{team.leader_name}}" type="text" class="form-control" name="leader_name" required>
+						</div>
+                        <div class="form-group">
+							<label>Leader Phone</label>
+							<input value="{{team.phone}}" type="number" class="form-control" name="phone" required>
+						</div>
+						<div class="form-group">
+							<label>Leader Email</label>
+							<input value="{{team.email}}" type="email" class="form-control" name="email" required>
+						</div>					
+					</div>
+					<div class="modal-footer">
+						<a href="{% url 'profile' user.id %}" class="btn btn-default">Cancle</a>
+						<input type="submit" class="btn btn-info" value="Save">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

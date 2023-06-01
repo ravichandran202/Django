@@ -1,0 +1,144 @@
+<!--
+
+########################################
+#
+# Developer : Ravichandran T S
+# Phone : 9113971166
+# Email : ravichandrants202@gmail.com
+#
+########################################
+
+-->
+
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="container">
+		<div class="table-responsive">
+			<div class="table-wrapper">
+				<div class="table-title">
+					<div class="row">
+						<div class="col-xs-6">
+							<h2>Manage <b>Teams</b></h2>
+						</div>
+						<div class="col-xs-6">
+							<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Teams</span></a>    						
+						</div>
+					</div>
+				</div>
+				<table class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Team Name</th>
+							<th>Team Size</th>
+							<th>College</th>
+							<th>Leader</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+                    {% for team in teams %}
+					    {% if team.paid == True %}
+						<tr>
+							<td>{{team.team_name}}</td>
+							<td>{{team.team_size}}</td>
+							<td>{{team.college_name}}</td>
+							<td>{{team.leader_name}}</td>
+							<td>{{team.phone}}</td>
+							<td>{{team.email}}</td>
+							<td>
+								<a href="teams/edit/{{team.id}}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="viewport">&#xE254;</i></a>
+								<a href="teams/delete/{{team.id}}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							</td>
+						</tr>
+						{% elif team.paid == False %}
+							<tr style="background-color: rgb(251, 215, 215); color: black;">
+								<td>{{team.team_name}}</td>
+								<td>{{team.team_size}}</td>
+								<td>{{team.college_name}}</td>
+								<td>{{team.leader_name}}</td>
+								<td>{{team.phone}}</td>
+								<td>{{team.email}}</td>
+							
+								<td>
+									<a href="teams/edit/{{team.id}}" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="viewport">&#xE254;</i></a>
+									<a href="teams/delete/{{team.id}}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+								</td>
+							</tr>
+						{% endif %}
+                    {% endfor %}
+					</tbody>
+				</table>
+				<div class="clearfix">
+					<div class="hint-text">Showing<b> {{count}}</b> entries</div>
+				</div>
+				{% for message in messages %}
+				<p class="text-danger">{{message}}</p>
+				{% endfor %}
+			</div>
+		</div>        
+    </div>
+
+
+	<!-- Add Modal HTML -->
+	<div id="addEmployeeModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="{% url 'addteam' %}" method="post">
+					{% csrf_token %}
+					<div class="modal-header alert alert-success">						
+						<h4 class="modal-title">ADD NEW Team RECORD</h4>
+					</div>
+					<div class="modal-body">					
+						<div class="form-group">
+							<label>Name</label>
+							<input type="text" class="form-control" name="team_name" required>
+						</div>
+						<div class="form-group">
+							<label>Size</label>
+							<input  type="number" class="form-control" name="team_size" required>
+						</div>
+                        <div class="form-group">
+							<label>College</label>
+							<input  type="text" class="form-control" name="college_name" required>
+						</div>
+                        <div class="form-group">
+							<label>Person 1</label>
+							<input type="text" class="form-control" name="person1" required>
+						</div>
+                        <div class="form-group">
+							<label>Person 2</label>
+							<input type="text" class="form-control" name="person2" required>
+						</div>
+                        <div class="form-group">
+							<label>Person 3</label>
+							<input type="text" class="form-control" name="person3">
+						</div>
+                        <div class="form-group">
+							<label>Person 4</label>
+							<input type="text" class="form-control" name="person4">
+						</div>
+						<div class="form-group">
+							<label>Leader Name</label>
+							<input  type="text" class="form-control" name="leader_name" required>
+						</div>
+                        <div class="form-group">
+							<label>Leader Phone</label>
+							<input  type="number" class="form-control" name="phone" required>
+						</div>
+						<div class="form-group">
+							<label>Leader Email</label>
+							<input  type="email" class="form-control" name="email" required>
+						</div>					
+					</div>
+					<div class="modal-footer">
+						<a href="{% url 'teams' %}" class="btn btn-default">Cancle</a>
+						<input type="submit" class="btn btn-info" value="Save">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

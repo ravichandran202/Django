@@ -1,0 +1,346 @@
+########################################
+#
+# Developer : Ravichandran T S
+# Phone : 9113971166
+# Email : ravichandrants202@gmail.com
+#
+########################################
+
+from django.shortcuts import render,redirect
+from django.contrib.auth.models import User,auth
+from django.contrib.auth import authenticate
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .models import TeamRegister,Feedback
+from datetime import datetime
+# Create your views here.
+
+
+#------------ INDEX / Home -------------
+
+def index(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        content = request.POST['comment']
+        Feedback(name=name,email=email,content=content).save()
+        return redirect('index')
+    
+    
+    return render(request,"index.html",{
+                'user': request.user ,
+                })
+
+#------------ SIGNUP / REGISTRATION PAGE -------------
+
+def signup(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+        firstname = request.POST['firstname']
+        lastname = request.POST['lastname']
+        password = request.POST['password']
+        password2 = request.POST['password2']
+        
+        if password2 == password:
+            if User.objects.filter(email=email).exists():
+                messages.info(request,"Email Already Exists")
+                return redirect('signup')
+            elif User.objects.filter(username=username).exists():
+                messages.info(request,"username Already Exists")
+                return redirect('signup')
+            else:
+                user = User.objects.create_user(username,email,password)
+                user.first_name = firstname
+                user.last_name = lastname
+                user.save()
+                return redirect('signin')
+        else :
+            messages.info(request,"Please Enter same Password")
+            return redirect('signup')
+        
+    return render(request,"signup.html")
+
+
+#------------ SIGIN / LOGIN PAGE -------------
+def signin(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        user = authenticate(request,username=username,password=password)
+        if user is not None:
+            auth.login(request,user)
+            return redirect("index")
+        else:
+            messages.info(request,'Username or Password is incorrect')
+            return redirect("signin")
+            
+        
+    return render(request,"signin.html")
+
+def logout(request):
+    auth.logout(request)
+    return redirect('signin')
+
+
+#------------ TEAM REGISTRATION PAGE -------------
+@login_required(login_url='signin')
+def register(request):
+    present = datetime.now()
+    if request.method == 'POST':
+        team_name = request.POST['team_name']
+        team_size =  request.POST['team_size']
+        college_name = request.POST['college_name']
+        person1 =  request.POST['person1']
+        person2 =  request.POST['person2']
+        person3 =  request.POST['person3']
+        person4 =  request.POST['person4']
+        leader_name =  request.POST['leader_name']
+        phone =  request.POST['leader_phone']
+        email =  request.POST['leader_email']
+            
+        if team_size == '1':
+            messages.info(request,"TeamSize must be grater than one")
+            return redirect('register')
+        
+        elif TeamRegister.objects.filter(leader_name=leader_name).exists():
+                messages.info(request,"LeaderName Already Exists")
+                return redirect('register')
+        elif TeamRegister.objects.filter(phone=phone).exists():
+                messages.info(request,"Leader Phone Number is Already Exists")
+                return redirect('register')
+        elif TeamRegister.objects.filter(email=email).exists():
+                messages.info(request,"Leader Email is Already Exists")
+                return redirect('register')
+        else:
+            TeamRegister(team_name=team_name,
+                     team_size=team_size,
+                     college_name=college_name,
+                     person1 = person1,
+                     person2 = person2,
+                     person3 = person3,
+                     person4 = person4,
+                     leader_name = leader_name,
+                     phone = phone,
+                     email = email,
+                     time = present.strftime("%c"),
+                     user_id = request.user.id).save()
+            return redirect(f'profile/{request.user.id}')
+        
+    return render(request,'register.html')
+
+
+
+#------------ TEAM DETAILS PAGE -------------
+@login_required(login_url='signin')
+def teamRecords(request):
+    if request.user.id == 1:
+        return render(request,'teamrecords.html',{
+            'teams':TeamRegister.objects.all(),
+            'count':len(TeamRegister.objects.all())
+        })
+    else:
+        return redirect('index')
+
+
+
+#------------ TEAM DETAILS EDITING PAGE -------------
+
+@login_required(login_url='signin')
+def teamEdit(request,id):
+    team = TeamRegister.objects.get(id=id)
+    if request.method == "POST":
+        team_name = request.POST['team_name']
+        team_size = request.POST['team_size']
+        college_name = request.POST['college_name']
+        person1 =  request.POST['person1']
+        person2 =  request.POST['person2']
+        person3 =  request.POST['person3']
+        person4 =  request.POST['person4']
+        leader_name =  request.POST['leader_name']
+        phone =  request.POST['phone']
+        email = request.POST['email']
+        
+        team.team_name=team_name
+        team.team_size=team_size
+        team.college_name=college_name
+        team.person1 = person1
+        team.person2 = person2
+        team.person3 = person3
+        team.person4 = person4
+        team.leader_name = leader_name
+        team.phone = phone
+        team.email = email
+        team.save()
+        return redirect('teams')
+    
+    
+    if request.user.id == 1:
+        return render(request,'teamedit.html',{ 
+           'team':team,
+        })
+    else:
+        return redirect('index')
+
+    
+def addteam(request):
+    if request.method == 'POST':
+        team_name = request.POST['team_name']
+        team_size =  request.POST['team_size']
+        college_name = request.POST['college_name']
+        person1 =  request.POST['person1']
+        person2 =  request.POST['person2']
+        person3 =  request.POST['person3']
+        person4 =  request.POST['person4']
+        leader_name =  request.POST['leader_name']
+        phone =  request.POST['phone']
+        email =  request.POST['email']
+
+        TeamRegister(team_name=team_name,
+                     team_size=team_size,
+                     college_name=college_name,
+                     person1 = person1,
+                     person2 = person2,
+                     person3 = person3,
+                     person4 = person4,
+                     leader_name = leader_name,
+                     phone = phone,
+                     email = email,
+                     user_id = request.user.id ).save()
+        return redirect('teams')
+    
+def teamDelete(request,id):
+    TeamRegister.objects.get(id=id).delete()
+    return redirect('teams')
+
+
+#------------ USER DETAILS PAGE -------------
+
+@login_required(login_url='signin')
+def userRecords(request):
+    if request.user.id == 1:
+        return render(request,'userrecords.html',{
+            'users':User.objects.all(),
+            'count':len(User.objects.all())
+        })
+    else:
+        return redirect('index')
+
+
+#------------ USER PROFILE PAGE -------------
+
+@login_required(login_url='signin')
+def profile(request,id):
+    myTeams = []
+    # print('User : ',User.objects.get(id=id),'--- User-id : ',User.objects.get(id=id).id)
+    
+    for team in TeamRegister.objects.all():
+        if User.objects.get(id=id).id == team.user_id:
+            myTeams.append(team)
+    
+    return render(request,'profile.html',{
+        'user':User.objects.get(id=id),
+        'teams':myTeams
+    })
+
+
+
+#------------ USER PAYMENT / PAY RECIPT PAGE -------------
+
+@login_required(login_url='signin')
+def payment(request,id):
+    present = datetime.now()
+    global checkTeamregisterid 
+    checkTeamregisterid = id
+
+    user_id = request.user.id
+    time = present.strftime("%c")
+    return render(request,'payment.html',{
+        'user':User.objects.get(id=user_id),
+        'team':TeamRegister.objects.get(id=id),
+        'time': time
+    })
+
+
+#------------ USER PAYMENT INFORMATION / PAYED RECIPT PAGE / PRINT RECIPT-------------
+
+
+@login_required(login_url='signin')
+def confirmpayment(request):
+    present = datetime.now()
+    try:
+        if request.method == 'GET':
+            payment_id = request.GET['payment_id']
+            team = TeamRegister.objects.get(id=checkTeamregisterid)
+            team.paid = True
+            team.payment_id = str(payment_id)
+            team.time = present.strftime("%c")
+            team.save()
+            id = request.user.id
+            return render(request,'payment.html',{
+                'user':User.objects.get(id=id),
+                'team':TeamRegister.objects.get(id=checkTeamregisterid),
+            })
+    except:
+        pass
+    return render(request,'payment.html',{})
+
+
+
+#------------ TERMS AND CONDITIONS PAGE-------------
+
+@login_required(login_url='signin')
+def TermsAndConditions(request):
+    return render(request,'termsandconditions.html')
+
+
+#------------ USER TEAM EDIT PAGE-------------
+
+@login_required(login_url='signin')
+def teamEditUser(request,id):
+    user_id = request.user.id
+    
+    team = TeamRegister.objects.get(id=id)
+    if request.method == "POST":
+        team_name = request.POST['team_name']
+        team_size = request.POST['team_size']
+        college_name = request.POST['college_name']
+        person1 =  request.POST['person1']
+        person2 =  request.POST['person2']
+        person3 =  request.POST['person3']
+        person4 =  request.POST['person4']
+        leader_name =  request.POST['leader_name']
+        phone =  request.POST['phone']
+        email = request.POST['email']
+        
+        team.team_name=team_name
+        team.team_size=team_size
+        team.college_name=college_name
+        team.person1 = person1
+        team.person2 = person2
+        team.person3 = person3
+        team.person4 = person4
+        team.leader_name = leader_name
+        team.phone = phone
+        team.email = email
+        team.save()
+        
+        
+        
+        ###### --- Get Request User Registered Teams Only --- ######
+        myTeams = []
+        
+        for team in TeamRegister.objects.all():
+            if User.objects.get(id=user_id).id == team.user_id:
+                myTeams.append(team)
+        
+        return render(request,'profile.html',{
+            'user':User.objects.get(id=user_id),
+            'teams':myTeams
+        })
+    
+    return render(request,'teamedituser.html',{ 
+        'team':team,
+        'user':User.objects.get(id=user_id)
+    })
