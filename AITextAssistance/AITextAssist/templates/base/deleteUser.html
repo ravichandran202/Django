@@ -1,0 +1,60 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+
+   body{
+    background-color: #262e3b;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    color: #a9b5ce;
+   }
+
+   .card-container{
+    min-height: 100vh;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+   }
+
+   .card{
+    background-color: #323D4E;
+    padding: 1rem;
+    border-radius: 15px;
+   }
+
+   a,button,form{
+    display: inline;
+   }
+
+   form{
+    width: 100%;
+   }
+
+   button{
+    margin-top: 1rem;
+    width: 100%;
+   }
+
+
+</style>
+
+<div class="card-container">
+    <div class="card">
+        <p class="text-white-50">are you sure to delete <strong>{{request.user.username}}</strong></p>
+        <a class="btn btn-success" href="{{request.META.HTTP_REFERER}}">Cancel</a>
+        <form action="{% url 'deleteUser' request.user.id %}" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-danger" type='submit'>Sure!!</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
