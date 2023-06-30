@@ -1,0 +1,85 @@
+{% include 'base.html' %}
+
+{% block container %}
+<section class="vh-100" style="background-color: #508bfc;">
+  <div class="container py-md-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          {% if type == 'signin' %}
+          <div class="card-body p-lg-5">
+            <h3 class="mb-5  text-center">Sign in</h3>
+            {% if messages %}
+            <div class="alert alert-danger" role="alert">
+              {% for message in messages %}
+              {{message}}
+              {% endfor %}
+            </div>
+            {% endif %}
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="form-outline mb-4">
+                <label class="form-label fw-bold " for="typeName">Username</label>
+                <input type="text" id="typeName" class="form-control form-control" name="username"
+                 required placeholder="username" />
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label fw-bold " for="typePasswordX-2">Password</label>
+                <input type="password" id="typePasswordX-2" class="form-control form-control" name="password"
+                 required placeholder="your password" />
+              </div>
+
+              <button class="btn btn-primary px-5" type="submit">Login</button>
+            </form>
+            <hr class="my-4">
+            <p>Register your account! <a href="{% url 'signup' %}" class="text-decoration-none">Click here</a> </p>
+          </div>
+          {% else %}
+          <div class="card-body p-lg-5">
+            <h3 class="mb-5 text-center">Sign up</h3>
+            {% if messages %}
+            <div class="alert alert-danger" role="alert">
+              {% for message in messages %}
+              {{message}}
+              {% endfor %}
+            </div>
+            {% endif %}
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="form-outline mb-4">
+                <label class="form-label fw-bold " for="typeName">Username</label>
+                <input type="text" id="typeName" class="form-control form-control" name="username"
+                  placeholder="username" required/>
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label fw-bold " for="typeName">Email</label>
+                <input type="email" id="typeName" class="form-control form-control" name="email"
+                  placeholder="example@abc.com" required/>
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label fw-bold " for="typePasswordX-2">Password</label>
+                <input type="password" id="typePasswordX-2" class="form-control form-control" name="password"
+                  placeholder="your password" required/>
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label fw-bold " for="typePasswordX-2">Confirm Password</label>
+                <input type="password" id="typePasswordX-2" class="form-control form-control" name="confirm_password"
+                  placeholder="Re-enter password" required/>
+              </div>
+
+              <button class="btn btn-primary px-5" type="submit">Register</button>
+            </form>
+            <hr class="my-4">
+            <p>Have an account already! <a href="{% url 'signin' %}" class="text-decoration-none">Click here</a> </p>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

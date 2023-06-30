@@ -1,0 +1,99 @@
+{% include 'base.html' %}
+
+{% block container %}
+
+<section class="vh-100">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <h3 class="text-center">MY TODO APP</h3>
+        <div class="card" id="list1" style="border-radius: .75rem; background-color: #eff1f2;">
+          <div class="card-body py-4 px-4 px-md-5">
+            
+              <div class="d-lg-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <a href="{% url 'logout' %}" class="btn btn-secondary me-5">Logout</a>
+                  <h3 class="d-lg-inline-block ">Welcome {{request.user}}</h3>
+                </div >
+                <form action="" method="get">
+                <div class="d-flex justify-content-end align-items-center mb-4 pt-2 pb-3">
+                  <p class="small mb-0 me-2 text-muted">Filter</p>
+                  <select class="select form-control" style="width: 150px;" name="filter">
+                    <option value="">All</option>
+                    <option value="is_completed">Completed</option>
+                    <option value="is_active">Active</option>
+                    <option value="is_due">due date</option>
+                  </select>
+                  <p class="small mb-0 ms-4 me-2 text-muted">Sort</p>
+                  <select class="select form-control" style="width: 150px;" name="sort">
+                    <option value="add_date">Added date</option>
+                    <option value="due_date">Due date</option>
+                  </select>
+                  <button type="submit" class="btn btn-success px-5 ms-3">Submit</button>
+                </div>
+              </div>
+            </form>
+            <div class="pb-2">
+              <div class="card">
+                <div class="card-body">
+
+                  <form action="{% url 'index' %}" method="post">
+                    {% csrf_token %}
+                    <div>
+                      <input type="text" id="exampleFormControlInput1" class="form-control form-control"
+                        placeholder="Add new..." name="todo-work" required>
+
+                      <div class="d-flex flex-row align-items-center pt-4">
+                        <div>
+                          <label for="todo-date" class="form-label ">Enter Due Date :</label>
+                          <input type="datetime-local" class="form-control" id="todo-date" name="due-date" required>
+                        </div>
+                        <div>
+                          <button type="submit" class="btn btn-primary px-5 ms-2 mt-4  text-center">Add</button>
+                        </div>
+                      </div>
+                    </div>
+
+                  </form>
+
+                </div>
+              </div>
+            </div>
+
+            <hr class="my-4">
+
+            {% for list in todoLists %}
+            <ul
+              class="list-group list-group-horizontal rounded-0 bg-transparent d-flex justify-content-center align-items-center">
+              <li class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
+                <p class="lead fw-normal mb-0">{{forloop.counter}}. {{list.work}}</p>
+                {% if list.is_completed %}
+                <span class="badge ms-1" style="border: 2px solid #25c763; color: #25c763;">Completed!!</span>
+                {% elif list.is_due %}
+                <span class="badge ms-1" style="border: 2px solid #e04343; color: #e04343;">Expired!!</span>
+                {% else %}
+                <span class="badge ms-1" style="border: 2px solid #4350e0; color: #4350e0;">Active!!</span>
+                {% endif %}
+              </li>
+              <li class="list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent">
+                <div class="d-flex flex-row justify-content-end mb-1">
+                  <a href="#!" class="text-info" data-mdb-toggle="tooltip" title="Edit todo"><i
+                      class="fas fa-pencil-alt me-3"></i></a>
+                  <a href="#!" class="text-danger" data-mdb-toggle="tooltip" title="Delete todo"><i
+                      class="fas fa-trash-alt"></i></a>
+                </div>
+                <div class="text-end text-muted">
+                  <a href="{% url 'complete' list.id %}" class="btn btn-outline-success px-3 btn-sm">Done</a>
+                  <a href="{% url 'edit' list.id %}" class="btn btn-outline-primary px-3 btn-sm">Edit</a>
+                  <a href="{% url 'delete' list.id %}" class="btn btn-danger px-3 btn-sm">Delete</a>
+                </div>
+              </li>
+            </ul>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
